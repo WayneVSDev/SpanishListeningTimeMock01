@@ -107,11 +107,47 @@
             font-size: 0.9em;
             display: none;
         }
+
+        .speed-control {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .speed-control label {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .speed-control select {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .speed-control select:focus {
+            outline: none;
+            border-color: #008CBA;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Spanish Listening Comprehension Test - Time Expressions (Beginner)</h1>
+        <div class="speed-control">
+            <label for="playback-speed">Playback Speed:</label>
+            <select id="playback-speed">
+                <option value="0.5">0.5x</option>
+                <option value="1.0" selected>1.0x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2.0">2.0x</option>
+                <option value="2.5">2.5x</option>
+                <option value="3.0">3.0x</option>
+            </select>
+        </div>
         <div id="quiz"></div>
         <button id="submit-btn">Submit Answers</button>
         <div id="results"></div>
@@ -1124,7 +1160,14 @@
         const quizContainer = document.getElementById('quiz');
         const submitButton = document.getElementById('submit-btn');
         const resultsContainer = document.getElementById('results');
+        const playbackSpeedSelect = document.getElementById('playback-speed');
         let selectedAnswers = new Array(questions.length).fill(null);
+        let playbackSpeed = 1.0; // Default speed
+
+        // Update playback speed when the dropdown changes
+        playbackSpeedSelect.addEventListener('change', () => {
+            playbackSpeed = parseFloat(playbackSpeedSelect.value);
+        });
 
         function generateQuiz() {
             questions.forEach((q, index) => {
@@ -1149,6 +1192,7 @@
 
         function playAudio(index) {
             const audio = new Audio(questions[index].audioFile);
+            audio.playbackRate = playbackSpeed; // Apply selected playback speed
             audio.play();
         }
 
