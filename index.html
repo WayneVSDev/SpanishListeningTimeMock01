@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish Listening Test - Time Expressions (Beginner)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .options {
+            margin: 15px 0;
+        }
+
+        .option {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background-color: #e9e9e9;
+        }
+
+        #submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+
+        #submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        #results {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .correct {
+            background-color: #d4edda !important;
+        }
+
+        .incorrect {
+            background-color: #f8d7da !important;
+        }
+
+        .play-audio-btn {
+            background-color: #008CBA;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .play-audio-btn:hover {
+            background-color: #005f7f;
+        }
+
+        .transcript {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-style: italic;
+            display: none;
+        }
+
+        .translation {
+            margin: 5px 0 10px 10px;
+            color: #666;
+            font-size: 0.9em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spanish Listening Comprehension Test - Time Expressions (Beginner)</h1>
+        <div id="quiz"></div>
+        <button id="submit-btn">Submit Answers</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                textToSpeak: "Son las doce en punto.",
+                textToSpeakEnglish: "It is twelve o'clock.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las doce en punto", "B) La una en punto", "C) Las dos en punto", "D) Las tres en punto"],
+                optionsEnglish: ["A) Twelve o'clock", "B) One o'clock", "C) Two o'clock", "D) Three o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/001.mp3"
+            },
+            {
+                textToSpeak: "Es la una de la mañana.",
+                textToSpeakEnglish: "It is one in the morning.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una de la tarde", "B) La una de la mañana", "C) Las dos de la mañana", "D) Medianoche"],
+                optionsEnglish: ["A) One in the afternoon", "B) One in the morning", "C) Two in the morning", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/002.mp3"
+            },
+            {
+                textToSpeak: "Son las dos y cuarto.",
+                textToSpeakEnglish: "It is two fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las dos y media", "B) Las dos y cuarto", "C) Las dos menos cuarto", "D) Las tres en punto"],
+                optionsEnglish: ["A) Two thirty", "B) Two fifteen", "C) Quarter to two", "D) Three o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/003.mp3"
+            },
+            {
+                textToSpeak: "Es la una y media.",
+                textToSpeakEnglish: "It is one thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una y cuarto", "B) La una y media", "C) La una menos cuarto", "D) La una en punto"],
+                optionsEnglish: ["A) One fifteen", "B) One thirty", "C) Quarter to one", "D) One o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/004.mp3"
+            },
+            {
+                textToSpeak: "Son las tres menos cuarto.",
+                textToSpeakEnglish: "It is quarter to three.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las tres y cuarto", "B) Las tres menos cuarto", "C) Las tres y media", "D) Las tres en punto"],
+                optionsEnglish: ["A) Three fifteen", "B) Quarter to three", "C) Three thirty", "D) Three o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/005.mp3"
+            },
+            {
+                textToSpeak: "Es mediodía.",
+                textToSpeakEnglish: "It is noon.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Medianoche", "B) Mediodía", "C) La una de la tarde", "D) Las doce de la noche"],
+                optionsEnglish: ["A) Midnight", "B) Noon", "C) One in the afternoon", "D) Twelve at night"],
+                correctAnswer: 1,
+                audioFile: "audio/006.mp3"
+            },
+            {
+                textToSpeak: "Es medianoche.",
+                textToSpeakEnglish: "It is midnight.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Mediodía", "B) Medianoche", "C) La una de la mañana", "D) Las doce de la tarde"],
+                optionsEnglish: ["A) Noon", "B) Midnight", "C) One in the morning", "D) Twelve in the afternoon"],
+                correctAnswer: 1,
+                audioFile: "audio/007.mp3"
+            },
+            {
+                textToSpeak: "Son las cuatro y diez.",
+                textToSpeakEnglish: "It is four ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cuatro y diez", "B) Las cuatro y cuarto", "C) Las cuatro menos diez", "D) Las cinco en punto"],
+                optionsEnglish: ["A) Four ten", "B) Four fifteen", "C) Ten to four", "D) Five o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/008.mp3"
+            },
+            {
+                textToSpeak: "Son las cinco menos diez.",
+                textToSpeakEnglish: "It is ten to five.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cinco y diez", "B) Las cinco menos diez", "C) Las cinco y cuarto", "D) Las cinco en punto"],
+                optionsEnglish: ["A) Five ten", "B) Ten to five", "C) Five fifteen", "D) Five o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/009.mp3"
+            },
+            {
+                textToSpeak: "Es la una de la tarde.",
+                textToSpeakEnglish: "It is one in the afternoon.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una de la mañana", "B) La una de la tarde", "C) La una de la noche", "D) Medianoche"],
+                optionsEnglish: ["A) One in the morning", "B) One in the afternoon", "C) One at night", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/010.mp3"
+            },
+            {
+                textToSpeak: "Son las seis en punto.",
+                textToSpeakEnglish: "It is six o'clock.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las seis en punto", "B) Las seis y cuarto", "C) Las siete en punto", "D) Las seis y media"],
+                optionsEnglish: ["A) Six o'clock", "B) Six fifteen", "C) Seven o'clock", "D) Six thirty"],
+                correctAnswer: 0,
+                audioFile: "audio/011.mp3"
+            },
+            {
+                textToSpeak: "Son las siete y veinte.",
+                textToSpeakEnglish: "It is seven twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las siete y cuarto", "B) Las siete y veinte", "C) Las siete menos cuarto", "D) Las ocho en punto"],
+                optionsEnglish: ["A) Seven fifteen", "B) Seven twenty", "C) Quarter to seven", "D) Eight o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/012.mp3"
+            },
+            {
+                textToSpeak: "Es la una menos cinco.",
+                textToSpeakEnglish: "It is five to one.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una y cinco", "B) La una menos cinco", "C) La una en punto", "D) La una y cuarto"],
+                optionsEnglish: ["A) Five past one", "B) Five to one", "C) One o'clock", "D) One fifteen"],
+                correctAnswer: 1,
+                audioFile: "audio/013.mp3"
+            },
+            {
+                textToSpeak: "Son las ocho de la noche.",
+                textToSpeakEnglish: "It is eight at night.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las ocho de la mañana", "B) Las ocho de la tarde", "C) Las ocho de la noche", "D) Mediodía"],
+                optionsEnglish: ["A) Eight in the morning", "B) Eight in the afternoon", "C) Eight at night", "D) Noon"],
+                correctAnswer: 2,
+                audioFile: "audio/014.mp3"
+            },
+            {
+                textToSpeak: "Son las nueve y cuarto.",
+                textToSpeakEnglish: "It is nine fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las nueve y cuarto", "B) Las nueve y media", "C) Las nueve menos cuarto", "D) Las diez en punto"],
+                optionsEnglish: ["A) Nine fifteen", "B) Nine thirty", "C) Quarter to nine", "D) Ten o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/015.mp3"
+            },
+            {
+                textToSpeak: "Es la una y cuarenta.",
+                textToSpeakEnglish: "It is one forty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una y cuarto", "B) La una y media", "C) La una y cuarenta", "D) La una menos cuarto"],
+                optionsEnglish: ["A) One fifteen", "B) One thirty", "C) One forty", "D) Quarter to one"],
+                correctAnswer: 2,
+                audioFile: "audio/016.mp3"
+            },
+            {
+                textToSpeak: "Son las diez menos cuarto.",
+                textToSpeakEnglish: "It is quarter to ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las diez y cuarto", "B) Las diez menos cuarto", "C) Las diez y media", "D) Las diez en punto"],
+                optionsEnglish: ["A) Ten fifteen", "B) Quarter to ten", "C) Ten thirty", "D) Ten o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/017.mp3"
+            },
+            {
+                textToSpeak: "Son las once de la mañana.",
+                textToSpeakEnglish: "It is eleven in the morning.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las once de la noche", "B) Las once de la mañana", "C) Las doce de la tarde", "D) Medianoche"],
+                optionsEnglish: ["A) Eleven at night", "B) Eleven in the morning", "C) Twelve in the afternoon", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/018.mp3"
+            },
+            {
+                textToSpeak: "Son las doce y media.",
+                textToSpeakEnglish: "It is twelve thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las doce y cuarto", "B) Las doce y media", "C) Las doce menos cuarto", "D) Las doce en punto"],
+                optionsEnglish: ["A) Twelve fifteen", "B) Twelve thirty", "C) Quarter to twelve", "D) Twelve o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/019.mp3"
+            },
+            {
+                textToSpeak: "Es la una de la noche.",
+                textToSpeakEnglish: "It is one at night.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una de la tarde", "B) La una de la noche", "C) La una de la mañana", "D) Mediodía"],
+                optionsEnglish: ["A) One in the afternoon", "B) One at night", "C) One in the morning", "D) Noon"],
+                correctAnswer: 1,
+                audioFile: "audio/020.mp3"
+            },
+            {
+                textToSpeak: "Son las dos y diez.",
+                textToSpeakEnglish: "It is two ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las dos y diez", "B) Las dos y cuarto", "C) Las dos menos diez", "D) Las tres en punto"],
+                optionsEnglish: ["A) Two ten", "B) Two fifteen", "C) Ten to two", "D) Three o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/021.mp3"
+            },
+            {
+                textToSpeak: "Son las tres y veinte.",
+                textToSpeakEnglish: "It is three twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las tres y cuarto", "B) Las tres y veinte", "C) Las tres menos cuarto", "D) Las cuatro en punto"],
+                optionsEnglish: ["A) Three fifteen", "B) Three twenty", "C) Quarter to three", "D) Four o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/022.mp3"
+            },
+            {
+                textToSpeak: "Son las cuatro menos cinco.",
+                textToSpeakEnglish: "It is five to four.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cuatro y cinco", "B) Las cuatro menos cinco", "C) Las cuatro en punto", "D) Las cuatro y cuarto"],
+                optionsEnglish: ["A) Five past four", "B) Five to four", "C) Four o'clock", "D) Four fifteen"],
+                correctAnswer: 1,
+                audioFile: "audio/023.mp3"
+            },
+            {
+                textToSpeak: "Son las cinco en punto.",
+                textToSpeakEnglish: "It is five o'clock.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cinco en punto", "B) Las cinco y cuarto", "C) Las seis en punto", "D) Las cinco y media"],
+                optionsEnglish: ["A) Five o'clock", "B) Five fifteen", "C) Six o'clock", "D) Five thirty"],
+                correctAnswer: 0,
+                audioFile: "audio/024.mp3"
+            },
+            {
+                textToSpeak: "Son las seis y cuarto.",
+                textToSpeakEnglish: "It is six fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las seis y cuarto", "B) Las seis y media", "C) Las seis menos cuarto", "D) Las siete en punto"],
+                optionsEnglish: ["A) Six fifteen", "B) Six thirty", "C) Quarter to six", "D) Seven o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/025.mp3"
+            },
+            {
+                textToSpeak: "Son las siete menos cuarto.",
+                textToSpeakEnglish: "It is quarter to seven.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las siete y cuarto", "B) Las siete menos cuarto", "C) Las siete y media", "D) Las siete en punto"],
+                optionsEnglish: ["A) Seven fifteen", "B) Quarter to seven", "C) Seven thirty", "D) Seven o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/026.mp3"
+            },
+            {
+                textToSpeak: "Es la una y cinco.",
+                textToSpeakEnglish: "It is five past one.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una y cinco", "B) La una menos cinco", "C) La una en punto", "D) La una y cuarto"],
+                optionsEnglish: ["A) Five past one", "B) Five to one", "C) One o'clock", "D) One fifteen"],
+                correctAnswer: 0,
+                audioFile: "audio/027.mp3"
+            },
+            {
+                textToSpeak: "Son las ocho y media.",
+                textToSpeakEnglish: "It is eight thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las ocho y cuarto", "B) Las ocho y media", "C) Las ocho menos cuarto", "D) Las nueve en punto"],
+                optionsEnglish: ["A) Eight fifteen", "B) Eight thirty", "C) Quarter to eight", "D) Nine o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/028.mp3"
+            },
+            {
+                textToSpeak: "Son las nueve menos diez.",
+                textToSpeakEnglish: "It is ten to nine.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las nueve y diez", "B) Las nueve menos diez", "C) Las nueve y cuarto", "D) Las nueve en punto"],
+                optionsEnglish: ["A) Nine ten", "B) Ten to nine", "C) Nine fifteen", "D) Nine o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/029.mp3"
+            },
+            {
+                textToSpeak: "Son las diez y cuarto.",
+                textToSpeakEnglish: "It is ten fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las diez y cuarto", "B) Las diez y media", "C) Las diez menos cuarto", "D) Las once en punto"],
+                optionsEnglish: ["A) Ten fifteen", "B) Ten thirty", "C) Quarter to ten", "D) Eleven o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/030.mp3"
+            },
+            {
+                textToSpeak: "Son las once y veinte.",
+                textToSpeakEnglish: "It is eleven twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las once y cuarto", "B) Las once y veinte", "C) Las once menos cuarto", "D) Las doce en punto"],
+                optionsEnglish: ["A) Eleven fifteen", "B) Eleven twenty", "C) Quarter to eleven", "D) Twelve o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/031.mp3"
+            },
+            {
+                textToSpeak: "Es la una menos veinte.",
+                textToSpeakEnglish: "It is twenty to one.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una y veinte", "B) La una menos veinte", "C) La una en punto", "D) La una y cuarto"],
+                optionsEnglish: ["A) Twenty past one", "B) Twenty to one", "C) One o'clock", "D) One fifteen"],
+                correctAnswer: 1,
+                audioFile: "audio/032.mp3"
+            },
+            {
+                textToSpeak: "Son las doce de la tarde.",
+                textToSpeakEnglish: "It is twelve in the afternoon.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las doce de la noche", "B) Las doce de la tarde", "C) Mediodía", "D) Medianoche"],
+                optionsEnglish: ["A) Twelve at night", "B) Twelve in the afternoon", "C) Noon", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/033.mp3"
+            },
+            {
+                textToSpeak: "Son las dos menos cuarto.",
+                textToSpeakEnglish: "It is quarter to two.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las dos y cuarto", "B) Las dos menos cuarto", "C) Las dos y media", "D) Las dos en punto"],
+                optionsEnglish: ["A) Two fifteen", "B) Quarter to two", "C) Two thirty", "D) Two o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/034.mp3"
+            },
+            {
+                textToSpeak: "Son las tres y media.",
+                textToSpeakEnglish: "It is three thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las tres y cuarto", "B) Las tres y media", "C) Las tres menos cuarto", "D) Las cuatro en punto"],
+                optionsEnglish: ["A) Three fifteen", "B) Three thirty", "C) Quarter to three", "D) Four o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/035.mp3"
+            },
+            {
+                textToSpeak: "Son las cuatro y diez.",
+                textToSpeakEnglish: "It is four ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cuatro y diez", "B) Las cuatro y cuarto", "C) Las cuatro menos diez", "D) Las cinco en punto"],
+                optionsEnglish: ["A) Four ten", "B) Four fifteen", "C) Ten to four", "D) Five o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/036.mp3"
+            },
+            {
+                textToSpeak: "Son las cinco y cinco.",
+                textToSpeakEnglish: "It is five past five.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cinco y cinco", "B) Las cinco menos cinco", "C) Las cinco en punto", "D) Las cinco y cuarto"],
+                optionsEnglish: ["A) Five past five", "B) Five to five", "C) Five o'clock", "D) Five fifteen"],
+                correctAnswer: 0,
+                audioFile: "audio/037.mp3"
+            },
+            {
+                textToSpeak: "Son las seis de la noche.",
+                textToSpeakEnglish: "It is six at night.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las seis de la mañana", "B) Las seis de la tarde", "C) Las seis de la noche", "D) Mediodía"],
+                optionsEnglish: ["A) Six in the morning", "B) Six in the afternoon", "C) Six at night", "D) Noon"],
+                correctAnswer: 2,
+                audioFile: "audio/038.mp3"
+            },
+            {
+                textToSpeak: "Son las siete y cuarto.",
+                textToSpeakEnglish: "It is seven fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las siete y cuarto", "B) Las siete y media", "C) Las siete menos cuarto", "D) Las ocho en punto"],
+                optionsEnglish: ["A) Seven fifteen", "B) Seven thirty", "C) Quarter to seven", "D) Eight o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/039.mp3"
+            },
+            {
+                textToSpeak: "Es la una en punto.",
+                textToSpeakEnglish: "It is one o'clock.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una en punto", "B) La una y cuarto", "C) La una y media", "D) Las dos en punto"],
+                optionsEnglish: ["A) One o'clock", "B) One fifteen", "C) One thirty", "D) Two o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/040.mp3"
+            },
+            {
+                textToSpeak: "Son las ocho menos cinco.",
+                textToSpeakEnglish: "It is five to eight.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las ocho y cinco", "B) Las ocho menos cinco", "C) Las ocho en punto", "D) Las ocho y cuarto"],
+                optionsEnglish: ["A) Five past eight", "B) Five to eight", "C) Eight o'clock", "D) Eight fifteen"],
+                correctAnswer: 1,
+                audioFile: "audio/041.mp3"
+            },
+            {
+                textToSpeak: "Son las nueve y veinte.",
+                textToSpeakEnglish: "It is nine twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las nueve y cuarto", "B) Las nueve y veinte", "C) Las nueve menos cuarto", "D) Las diez en punto"],
+                optionsEnglish: ["A) Nine fifteen", "B) Nine twenty", "C) Quarter to nine", "D) Ten o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/042.mp3"
+            },
+            {
+                textToSpeak: "Son las diez y media.",
+                textToSpeakEnglish: "It is ten thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las diez y cuarto", "B) Las diez y media", "C) Las diez menos cuarto", "D) Las once en punto"],
+                optionsEnglish: ["A) Ten fifteen", "B) Ten thirty", "C) Quarter to ten", "D) Eleven o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/043.mp3"
+            },
+            {
+                textToSpeak: "Son las once menos cuarto.",
+                textToSpeakEnglish: "It is quarter to eleven.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las once y cuarto", "B) Las once menos cuarto", "C) Las once y media", "D) Las once en punto"],
+                optionsEnglish: ["A) Eleven fifteen", "B) Quarter to eleven", "C) Eleven thirty", "D) Eleven o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/044.mp3"
+            },
+            {
+                textToSpeak: "Es mediodía y diez.",
+                textToSpeakEnglish: "It is ten past noon.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Mediodía", "B) Mediodía y diez", "C) Medianoche", "D) Las doce de la tarde"],
+                optionsEnglish: ["A) Noon", "B) Ten past noon", "C) Midnight", "D) Twelve in the afternoon"],
+                correctAnswer: 1,
+                audioFile: "audio/045.mp3"
+            },
+            {
+                textToSpeak: "Es medianoche y cinco.",
+                textToSpeakEnglish: "It is five past midnight.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Medianoche", "B) Medianoche y cinco", "C) Mediodía", "D) La una de la mañana"],
+                optionsEnglish: ["A) Midnight", "B) Five past midnight", "C) Noon", "D) One in the morning"],
+                correctAnswer: 1,
+                audioFile: "audio/046.mp3"
+            },
+            {
+                textToSpeak: "Son las doce y cuarto.",
+                textToSpeakEnglish: "It is twelve fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las doce y cuarto", "B) Las doce y media", "C) Las doce menos cuarto", "D) Las doce en punto"],
+                optionsEnglish: ["A) Twelve fifteen", "B) Twelve thirty", "C) Quarter to twelve", "D) Twelve o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/047.mp3"
+            },
+            {
+                textToSpeak: "Son las una y diez.",
+                textToSpeakEnglish: "It is one ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una y diez", "B) La una y cuarto", "C) La una menos diez", "D) Las dos en punto"],
+                optionsEnglish: ["A) One ten", "B) One fifteen", "C) Ten to one", "D) Two o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/048.mp3"
+            },
+            {
+                textToSpeak: "Son las dos y media.",
+                textToSpeakEnglish: "It is two thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las dos y cuarto", "B) Las dos y media", "C) Las dos menos cuarto", "D) Las tres en punto"],
+                optionsEnglish: ["A) Two fifteen", "B) Two thirty", "C) Quarter to two", "D) Three o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/049.mp3"
+            },
+            {
+                textToSpeak: "Son las tres menos diez.",
+                textToSpeakEnglish: "It is ten to three.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las tres y diez", "B) Las tres menos diez", "C) Las tres y cuarto", "D) Las tres en punto"],
+                optionsEnglish: ["A) Three ten", "B) Ten to three", "C) Three fifteen", "D) Three o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/050.mp3"
+            },
+            {
+                textToSpeak: "Son las cuatro de la mañana.",
+                textToSpeakEnglish: "It is four in the morning.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cuatro de la tarde", "B) Las cuatro de la mañana", "C) Las cuatro de la noche", "D) Mediodía"],
+                optionsEnglish: ["A) Four in the afternoon", "B) Four in the morning", "C) Four at night", "D) Noon"],
+                correctAnswer: 1,
+                audioFile: "audio/051.mp3"
+            },
+            {
+                textToSpeak: "Son las cinco y veinte.",
+                textToSpeakEnglish: "It is five twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cinco y cuarto", "B) Las cinco y veinte", "C) Las cinco menos cuarto", "D) Las seis en punto"],
+                optionsEnglish: ["A) Five fifteen", "B) Five twenty", "C) Quarter to five", "D) Six o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/052.mp3"
+            },
+            {
+                textToSpeak: "Son las seis menos cuarto.",
+                textToSpeakEnglish: "It is quarter to six.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las seis y cuarto", "B) Las seis menos cuarto", "C) Las seis y media", "D) Las seis en punto"],
+                optionsEnglish: ["A) Six fifteen", "B) Quarter to six", "C) Six thirty", "D) Six o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/053.mp3"
+            },
+            {
+                textToSpeak: "Son las siete y cinco.",
+                textToSpeakEnglish: "It is five past seven.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las siete y cinco", "B) Las siete menos cinco", "C) Las siete en punto", "D) Las siete y cuarto"],
+                optionsEnglish: ["A) Five past seven", "B) Five to seven", "C) Seven o'clock", "D) Seven fifteen"],
+                correctAnswer: 0,
+                audioFile: "audio/054.mp3"
+            },
+            {
+                textToSpeak: "Son las ocho de la tarde.",
+                textToSpeakEnglish: "It is eight in the afternoon.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las ocho de la mañana", "B) Las ocho de la tarde", "C) Las ocho de la noche", "D) Medianoche"],
+                optionsEnglish: ["A) Eight in the morning", "B) Eight in the afternoon", "C) Eight at night", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/055.mp3"
+            },
+            {
+                textToSpeak: "Son las nueve y cuarto.",
+                textToSpeakEnglish: "It is nine fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las nueve y cuarto", "B) Las nueve y media", "C) Las nueve menos cuarto", "D) Las diez en punto"],
+                optionsEnglish: ["A) Nine fifteen", "B) Nine thirty", "C) Quarter to nine", "D) Ten o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/056.mp3"
+            },
+            {
+                textToSpeak: "Son las diez menos cinco.",
+                textToSpeakEnglish: "It is five to ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las diez y cinco", "B) Las diez menos cinco", "C) Las diez en punto", "D) Las diez y cuarto"],
+                optionsEnglish: ["A) Five past ten", "B) Five to ten", "C) Ten o'clock", "D) Ten fifteen"],
+                correctAnswer: 1,
+                audioFile: "audio/057.mp3"
+            },
+            {
+                textToSpeak: "Son las once y diez.",
+                textToSpeakEnglish: "It is eleven ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las once y diez", "B) Las once y cuarto", "C) Las once menos diez", "D) Las doce en punto"],
+                optionsEnglish: ["A) Eleven ten", "B) Eleven fifteen", "C) Ten to eleven", "D) Twelve o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/058.mp3"
+            },
+            {
+                textToSpeak: "Son las doce de la noche.",
+                textToSpeakEnglish: "It is twelve at night.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las doce de la tarde", "B) Las doce de la noche", "C) Mediodía", "D) Medianoche"],
+                optionsEnglish: ["A) Twelve in the afternoon", "B) Twelve at night", "C) Noon", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/059.mp3"
+            },
+            {
+                textToSpeak: "Es la una y cuarto.",
+                textToSpeakEnglish: "It is one fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una y cuarto", "B) La una y media", "C) La una menos cuarto", "D) La una en punto"],
+                optionsEnglish: ["A) One fifteen", "B) One thirty", "C) Quarter to one", "D) One o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/060.mp3"
+            },
+            {
+                textToSpeak: "Son las dos y veinte.",
+                textToSpeakEnglish: "It is two twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las dos y cuarto", "B) Las dos y veinte", "C) Las dos menos cuarto", "D) Las tres en punto"],
+                optionsEnglish: ["A) Two fifteen", "B) Two twenty", "C) Quarter to two", "D) Three o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/061.mp3"
+            },
+            {
+                textToSpeak: "Son las tres en punto.",
+                textToSpeakEnglish: "It is three o'clock.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las tres en punto", "B) Las tres y cuarto", "C) Las cuatro en punto", "D) Las tres y media"],
+                optionsEnglish: ["A) Three o'clock", "B) Three fifteen", "C) Four o'clock", "D) Three thirty"],
+                correctAnswer: 0,
+                audioFile: "audio/062.mp3"
+            },
+            {
+                textToSpeak: "Son las cuatro y media.",
+                textToSpeakEnglish: "It is four thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cuatro y cuarto", "B) Las cuatro y media", "C) Las cuatro menos cuarto", "D) Las cinco en punto"],
+                optionsEnglish: ["A) Four fifteen", "B) Four thirty", "C) Quarter to four", "D) Five o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/063.mp3"
+            },
+            {
+                textToSpeak: "Son las cinco menos cuarto.",
+                textToSpeakEnglish: "It is quarter to five.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cinco y cuarto", "B) Las cinco menos cuarto", "C) Las cinco y media", "D) Las cinco en punto"],
+                optionsEnglish: ["A) Five fifteen", "B) Quarter to five", "C) Five thirty", "D) Five o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/064.mp3"
+            },
+            {
+                textToSpeak: "Son las seis y diez.",
+                textToSpeakEnglish: "It is six ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las seis y diez", "B) Las seis y cuarto", "C) Las seis menos diez", "D) Las siete en punto"],
+                optionsEnglish: ["A) Six ten", "B) Six fifteen", "C) Ten to six", "D) Seven o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/065.mp3"
+            },
+            {
+                textToSpeak: "Son las siete de la mañana.",
+                textToSpeakEnglish: "It is seven in the morning.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las siete de la tarde", "B) Las siete de la mañana", "C) Las siete de la noche", "D) Mediodía"],
+                optionsEnglish: ["A) Seven in the afternoon", "B) Seven in the morning", "C) Seven at night", "D) Noon"],
+                correctAnswer: 1,
+                audioFile: "audio/066.mp3"
+            },
+            {
+                textToSpeak: "Son las ocho y cuarto.",
+                textToSpeakEnglish: "It is eight fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las ocho y cuarto", "B) Las ocho y media", "C) Las ocho menos cuarto", "D) Las nueve en punto"],
+                optionsEnglish: ["A) Eight fifteen", "B) Eight thirty", "C) Quarter to eight", "D) Nine o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/067.mp3"
+            },
+            {
+                textToSpeak: "Son las nueve y cinco.",
+                textToSpeakEnglish: "It is five past nine.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las nueve y cinco", "B) Las nueve menos cinco", "C) Las nueve en punto", "D) Las nueve y cuarto"],
+                optionsEnglish: ["A) Five past nine", "B) Five to nine", "C) Nine o'clock", "D) Nine fifteen"],
+                correctAnswer: 0,
+                audioFile: "audio/068.mp3"
+            },
+            {
+                textToSpeak: "Son las diez y veinte.",
+                textToSpeakEnglish: "It is ten twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las diez y cuarto", "B) Las diez y veinte", "C) Las diez menos cuarto", "D) Las once en punto"],
+                optionsEnglish: ["A) Ten fifteen", "B) Ten twenty", "C) Quarter to ten", "D) Eleven o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/069.mp3"
+            },
+            {
+                textToSpeak: "Son las once menos diez.",
+                textToSpeakEnglish: "It is ten to eleven.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las once y diez", "B) Las once menos diez", "C) Las once y cuarto", "D) Las once en punto"],
+                optionsEnglish: ["A) Eleven ten", "B) Ten to eleven", "C) Eleven fifteen", "D) Eleven o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/070.mp3"
+            },
+            {
+                textToSpeak: "Es la una de la tarde.",
+                textToSpeakEnglish: "It is one in the afternoon.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una de la mañana", "B) La una de la tarde", "C) La una de la noche", "D) Medianoche"],
+                optionsEnglish: ["A) One in the morning", "B) One in the afternoon", "C) One at night", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/071.mp3"
+            },
+            {
+                textToSpeak: "Son las dos y cuarto.",
+                textToSpeakEnglish: "It is two fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las dos y cuarto", "B) Las dos y media", "C) Las dos menos cuarto", "D) Las tres en punto"],
+                optionsEnglish: ["A) Two fifteen", "B) Two thirty", "C) Quarter to two", "D) Three o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/072.mp3"
+            },
+            {
+                textToSpeak: "Son las tres y diez.",
+                textToSpeakEnglish: "It is three ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las tres y diez", "B) Las tres y cuarto", "C) Las tres menos diez", "D) Las cuatro en punto"],
+                optionsEnglish: ["A) Three ten", "B) Three fifteen", "C) Ten to three", "D) Four o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/073.mp3"
+            },
+            {
+                textToSpeak: "Son las cuatro menos cuarto.",
+                textToSpeakEnglish: "It is quarter to four.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cuatro y cuarto", "B) Las cuatro menos cuarto", "C) Las cuatro y media", "D) Las cuatro en punto"],
+                optionsEnglish: ["A) Four fifteen", "B) Quarter to four", "C) Four thirty", "D) Four o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/074.mp3"
+            },
+            {
+                textToSpeak: "Son las cinco y media.",
+                textToSpeakEnglish: "It is five thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cinco y cuarto", "B) Las cinco y media", "C) Las cinco menos cuarto", "D) Las seis en punto"],
+                optionsEnglish: ["A) Five fifteen", "B) Five thirty", "C) Quarter to five", "D) Six o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/075.mp3"
+            },
+            {
+                textToSpeak: "Son las seis y cinco.",
+                textToSpeakEnglish: "It is five past six.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las seis y cinco", "B) Las seis menos cinco", "C) Las seis en punto", "D) Las seis y cuarto"],
+                optionsEnglish: ["A) Five past six", "B) Five to six", "C) Six o'clock", "D) Six fifteen"],
+                correctAnswer: 0,
+                audioFile: "audio/076.mp3"
+            },
+            {
+                textToSpeak: "Son las siete de la noche.",
+                textToSpeakEnglish: "It is seven at night.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las siete de la mañana", "B) Las siete de la tarde", "C) Las siete de la noche", "D) Mediodía"],
+                optionsEnglish: ["A) Seven in the morning", "B) Seven in the afternoon", "C) Seven at night", "D) Noon"],
+                correctAnswer: 2,
+                audioFile: "audio/077.mp3"
+            },
+            {
+                textToSpeak: "Son las ocho menos diez.",
+                textToSpeakEnglish: "It is ten to eight.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las ocho y diez", "B) Las ocho menos diez", "C) Las ocho y cuarto", "D) Las ocho en punto"],
+                optionsEnglish: ["A) Eight ten", "B) Ten to eight", "C) Eight fifteen", "D) Eight o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/078.mp3"
+            },
+            {
+                textToSpeak: "Son las nueve y cuarto.",
+                textToSpeakEnglish: "It is nine fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las nueve y cuarto", "B) Las nueve y media", "C) Las nueve menos cuarto", "D) Las diez en punto"],
+                optionsEnglish: ["A) Nine fifteen", "B) Nine thirty", "C) Quarter to nine", "D) Ten o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/079.mp3"
+            },
+            {
+                textToSpeak: "Son las diez en punto.",
+                textToSpeakEnglish: "It is ten o'clock.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las diez en punto", "B) Las diez y cuarto", "C) Las once en punto", "D) Las diez y media"],
+                optionsEnglish: ["A) Ten o'clock", "B) Ten fifteen", "C) Eleven o'clock", "D) Ten thirty"],
+                correctAnswer: 0,
+                audioFile: "audio/080.mp3"
+            },
+            {
+                textToSpeak: "Son las once y media.",
+                textToSpeakEnglish: "It is eleven thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las once y cuarto", "B) Las once y media", "C) Las once menos cuarto", "D) Las doce en punto"],
+                optionsEnglish: ["A) Eleven fifteen", "B) Eleven thirty", "C) Quarter to eleven", "D) Twelve o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/081.mp3"
+            },
+            {
+                textToSpeak: "Es la una menos cuarto.",
+                textToSpeakEnglish: "It is quarter to one.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una y cuarto", "B) La una menos cuarto", "C) La una y media", "D) La una en punto"],
+                optionsEnglish: ["A) One fifteen", "B) Quarter to one", "C) One thirty", "D) One o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/082.mp3"
+            },
+            {
+                textToSpeak: "Son las doce y diez.",
+                textToSpeakEnglish: "It is twelve ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las doce y diez", "B) Las doce y cuarto", "C) Las doce menos diez", "D) Las una en punto"],
+                optionsEnglish: ["A) Twelve ten", "B) Twelve fifteen", "C) Ten to twelve", "D) One o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/083.mp3"
+            },
+            {
+                textToSpeak: "Son las dos de la mañana.",
+                textToSpeakEnglish: "It is two in the morning.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las dos de la tarde", "B) Las dos de la mañana", "C) Las dos de la noche", "D) Mediodía"],
+                optionsEnglish: ["A) Two in the afternoon", "B) Two in the morning", "C) Two at night", "D) Noon"],
+                correctAnswer: 1,
+                audioFile: "audio/084.mp3"
+            },
+            {
+                textToSpeak: "Son las tres y cuarto.",
+                textToSpeakEnglish: "It is three fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las tres y cuarto", "B) Las tres y media", "C) Las tres menos cuarto", "D) Las cuatro en punto"],
+                optionsEnglish: ["A) Three fifteen", "B) Three thirty", "C) Quarter to three", "D) Four o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/085.mp3"
+            },
+            {
+                textToSpeak: "Son las cuatro y veinte.",
+                textToSpeakEnglish: "It is four twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cuatro y cuarto", "B) Las cuatro y veinte", "C) Las cuatro menos cuarto", "D) Las cinco en punto"],
+                optionsEnglish: ["A) Four fifteen", "B) Four twenty", "C) Quarter to four", "D) Five o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/086.mp3"
+            },
+            {
+                textToSpeak: "Son las cinco menos cinco.",
+                textToSpeakEnglish: "It is five to five.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cinco y cinco", "B) Las cinco menos cinco", "C) Las cinco en punto", "D) Las cinco y cuarto"],
+                optionsEnglish: ["A) Five past five", "B) Five to five", "C) Five o'clock", "D) Five fifteen"],
+                correctAnswer: 1,
+                audioFile: "audio/087.mp3"
+            },
+            {
+                textToSpeak: "Son las seis de la tarde.",
+                textToSpeakEnglish: "It is six in the afternoon.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las seis de la mañana", "B) Las seis de la tarde", "C) Las seis de la noche", "D) Medianoche"],
+                optionsEnglish: ["A) Six in the morning", "B) Six in the afternoon", "C) Six at night", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/088.mp3"
+            },
+            {
+                textToSpeak: "Son las siete y diez.",
+                textToSpeakEnglish: "It is seven ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las siete y diez", "B) Las siete y cuarto", "C) Las siete menos diez", "D) Las ocho en punto"],
+                optionsEnglish: ["A) Seven ten", "B) Seven fifteen", "C) Ten to seven", "D) Eight o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/089.mp3"
+            },
+            {
+                textToSpeak: "Son las ocho y media.",
+                textToSpeakEnglish: "It is eight thirty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las ocho y cuarto", "B) Las ocho y media", "C) Las ocho menos cuarto", "D) Las nueve en punto"],
+                optionsEnglish: ["A) Eight fifteen", "B) Eight thirty", "C) Quarter to eight", "D) Nine o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/090.mp3"
+            },
+            {
+                textToSpeak: "Son las nueve menos cuarto.",
+                textToSpeakEnglish: "It is quarter to nine.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las nueve y cuarto", "B) Las nueve menos cuarto", "C) Las nueve y media", "D) Las nueve en punto"],
+                optionsEnglish: ["A) Nine fifteen", "B) Quarter to nine", "C) Nine thirty", "D) Nine o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/091.mp3"
+            },
+            {
+                textToSpeak: "Son las diez y cinco.",
+                textToSpeakEnglish: "It is five past ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las diez y cinco", "B) Las diez menos cinco", "C) Las diez en punto", "D) Las diez y cuarto"],
+                optionsEnglish: ["A) Five past ten", "B) Five to ten", "C) Ten o'clock", "D) Ten fifteen"],
+                correctAnswer: 0,
+                audioFile: "audio/092.mp3"
+            },
+            {
+                textToSpeak: "Son las once y cuarto.",
+                textToSpeakEnglish: "It is eleven fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las once y cuarto", "B) Las once y media", "C) Las once menos cuarto", "D) Las doce en punto"],
+                optionsEnglish: ["A) Eleven fifteen", "B) Eleven thirty", "C) Quarter to eleven", "D) Twelve o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/093.mp3"
+            },
+            {
+                textToSpeak: "Es la una de la noche.",
+                textToSpeakEnglish: "It is one at night.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) La una de la tarde", "B) La una de la noche", "C) La una de la mañana", "D) Mediodía"],
+                optionsEnglish: ["A) One in the afternoon", "B) One at night", "C) One in the morning", "D) Noon"],
+                correctAnswer: 1,
+                audioFile: "audio/094.mp3"
+            },
+            {
+                textToSpeak: "Son las dos y diez.",
+                textToSpeakEnglish: "It is two ten.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las dos y diez", "B) Las dos y cuarto", "C) Las dos menos diez", "D) Las tres en punto"],
+                optionsEnglish: ["A) Two ten", "B) Two fifteen", "C) Ten to two", "D) Three o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/095.mp3"
+            },
+            {
+                textToSpeak: "Son las tres de la tarde.",
+                textToSpeakEnglish: "It is three in the afternoon.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las tres de la mañana", "B) Las tres de la tarde", "C) Las tres de la noche", "D) Medianoche"],
+                optionsEnglish: ["A) Three in the morning", "B) Three in the afternoon", "C) Three at night", "D) Midnight"],
+                correctAnswer: 1,
+                audioFile: "audio/096.mp3"
+            },
+            {
+                textToSpeak: "Son las cuatro y cuarto.",
+                textToSpeakEnglish: "It is four fifteen.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cuatro y cuarto", "B) Las cuatro y media", "C) Las cuatro menos cuarto", "D) Las cinco en punto"],
+                optionsEnglish: ["A) Four fifteen", "B) Four thirty", "C) Quarter to four", "D) Five o'clock"],
+                correctAnswer: 0,
+                audioFile: "audio/097.mp3"
+            },
+            {
+                textToSpeak: "Son las cinco y veinte.",
+                textToSpeakEnglish: "It is five twenty.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las cinco y cuarto", "B) Las cinco y veinte", "C) Las cinco menos cuarto", "D) Las seis en punto"],
+                optionsEnglish: ["A) Five fifteen", "B) Five twenty", "C) Quarter to five", "D) Six o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/098.mp3"
+            },
+            {
+                textToSpeak: "Son las seis menos diez.",
+                textToSpeakEnglish: "It is ten to six.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las seis y diez", "B) Las seis menos diez", "C) Las seis y cuarto", "D) Las seis en punto"],
+                optionsEnglish: ["A) Six ten", "B) Ten to six", "C) Six fifteen", "D) Six o'clock"],
+                correctAnswer: 1,
+                audioFile: "audio/099.mp3"
+            },
+            {
+                textToSpeak: "Son las siete en punto.",
+                textToSpeakEnglish: "It is seven o'clock.",
+                question: "¿Qué hora es?",
+                questionEnglish: "What time is it?",
+                options: ["A) Las siete en punto", "B) Las siete y cuarto", "C) Las ocho en punto", "D) Las siete y media"],
+                optionsEnglish: ["A) Seven o'clock", "B) Seven fifteen", "C) Eight o'clock", "D) Seven thirty"],
+                correctAnswer: 0,
+                audioFile: "audio/100.mp3"
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz');
+        const submitButton = document.getElementById('submit-btn');
+        const resultsContainer = document.getElementById('results');
+        let selectedAnswers = new Array(questions.length).fill(null);
+
+        function generateQuiz() {
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `
+                    <p><strong>Pregunta ${index + 1}:</strong> ${q.question}</p>
+                    <div class="translation" id="question-translation-${index}">${q.questionEnglish}</div>
+                    <button class="play-audio-btn" onclick="playAudio(${index})">Escuchar Audio</button>
+                    <div class="transcript" id="transcript-${index}">${q.textToSpeak}</div>
+                    <div class="translation" id="transcript-translation-${index}">${q.textToSpeakEnglish}</div>
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((option, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">${option}</div>
+                            <div class="translation" id="option-translation-${index}-${i}">${q.optionsEnglish[i]}</div>
+                        `).join('')}
+                    </div>
+                `;
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function playAudio(index) {
+            const audio = new Audio(questions[index].audioFile);
+            audio.play();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            selectedAnswers[questionIndex] = optionIndex;
+            const options = document.querySelectorAll(`#options-${questionIndex} .option`);
+            options.forEach((opt, i) => {
+                opt.style.backgroundColor = i === optionIndex ? '#e0e0e0' : '#f9f9f9';
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const options = document.querySelectorAll(`#options-${index} .option`);
+                const transcript = document.getElementById(`transcript-${index}`);
+                const transcriptTranslation = document.getElementById(`transcript-translation-${index}`);
+                const questionTranslation = document.getElementById(`question-translation-${index}`);
+                transcript.style.display = 'block';
+                transcriptTranslation.style.display = 'block';
+                questionTranslation.style.display = 'block';
+                options.forEach((opt, i) => {
+                    const optionTranslation = document.getElementById(`option-translation-${index}-${i}`);
+                    optionTranslation.style.display = 'block';
+                    if (i === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    } else if (i === selectedAnswers[index] && selectedAnswers[index] !== q.correctAnswer) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                if (selectedAnswers[index] === q.correctAnswer) {
+                    score++;
+                }
+            });
+            resultsContainer.innerHTML = `Tu puntuación: ${score} de ${questions.length}`;
+            submitButton.disabled = true;
+        }
+
+        submitButton.addEventListener('click', checkAnswers);
+
+        generateQuiz();
+    </script>
+</body>
+</html>
